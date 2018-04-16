@@ -29,6 +29,7 @@ import org.gearvrf.GVRMain;
 import org.gearvrf.GVRScene;
 import org.gearvrf.GVRSceneObject;
 import org.gearvrf.GVRScreenshotCallback;
+import org.gearvrf.SystemPropertyUtil;
 import org.gearvrf.utility.Log;
 import org.gearvrf.utility.Threads;
 
@@ -296,6 +297,7 @@ public class GVRTestUtils implements GVRMainMonitor {
         private String mTestName;
         private String mCategory;
         private boolean mDoCompare;
+        private String mBackend = "stereo";
 
         /**
          * Prepare for a new screen capture.
@@ -310,6 +312,9 @@ public class GVRTestUtils implements GVRMainMonitor {
             mCategory = category;
             mWaiter = waiter;
             mDoCompare = compare;
+            int backend = SystemPropertyUtil.getSystemProperty("debug.gearvrf.backend");
+            if(backend == 6)
+                mBackend = "mono";
         }
 
         private void compareWithGolden(final Bitmap screenshot)
@@ -321,7 +326,7 @@ public class GVRTestUtils implements GVRMainMonitor {
 
                 try
                 {
-                    URL url = new URL(GOLDEN_MASTERS_URL + "/" + mCategory + "/" + testname);
+                    URL url = new URL(GOLDEN_MASTERS_URL + "/" + mBackend + "/" + mCategory + "/" + testname);
                     Log.v(TAG, "Fetching golden master " + url.toString());
                     final InputStream inputStream = url.openStream();
                     try

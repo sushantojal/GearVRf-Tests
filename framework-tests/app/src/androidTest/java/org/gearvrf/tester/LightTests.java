@@ -397,7 +397,7 @@ public class LightTests
         mTestUtils.waitForXFrames(2);
         light1.setEnable(true);
         mTestUtils.waitForXFrames(2);
-        mTestUtils.screenShot(getClass().getSimpleName(), "directAndPointLightsIlluminate", mWaiter, mDoCompare);
+        mTestUtils.screenShot(getClass().getSimpleName(), "canEnableLight", mWaiter, mDoCompare);
     }
 
     @Test
